@@ -103,8 +103,25 @@ $ git diff HEAD
 ```
 *这里的`HEAD`是指向当前分支中最新一次提交的指针。*
 
+## 分支的操作
 
- 
+### git branch——显示分支一览表
+```
+$ git branch
+* master
+```
+*`*`表示当前所在分支*
 
+### git checkout -b——创建、切换分支
 
+#### 切换到 feature-A 分支并进行提交
+```
+$ git checkout -b feature-A
+Switched to a new branch 'feature-A'
+```
+*连续执行下面两条命令也能收到同样效果。*
+```
+$ git branch feature-A
+$ git checkout feature-A
+```
 

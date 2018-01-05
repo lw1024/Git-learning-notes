@@ -3,26 +3,31 @@
 ## 常用操作
 
 ### clone 已有仓库
+
 ```
 $ git clone git@github.com:lw1024/Git-learning-notes.git
 ```
 
 ### 查看当前状态
+
 ```
 $ git status
 ```
 
 ### 提交
+
 ```
 $ git add [要提交的文件]
 $ git commit -m "提交信息描述"
 ```
 ### 查看提交日志
+
 ```
 $ git log
 ```
 
 ### 进行 push
+
 ```
 $ git push
 ```
@@ -30,6 +35,7 @@ $ git push
 ## 基本操作
 
 ### git init——初始化仓库
+
 ```
 $ mkdir git-tutorial
 $ cd git-tutorial
@@ -37,18 +43,21 @@ $ git init
 ```
 
 ### git status——查看仓库的状态
+
 ```
 $ touch README.md
 $ git status
 ```
 
 ### git add——向暂存区中添加文件
+
 ```
 $ git add README.md
 $ git status
 ```
 
 ### git commit——保存仓库的历史记录
+
 ```
 $ git commit -m "First commit"
 ```
@@ -69,6 +78,7 @@ $ git commit -m "First commit"
 > 如果在编辑器启动后想终止提交，请将提交信息留空并直接关闭编辑器，随后提交就会被终止。
 
 ### git log——查看提交日志
+
 ```
 $ git log
 ```
@@ -92,19 +102,56 @@ $ git log -p README.md
 ### git diff——查看更改前后的差别
 
 **查看工作树和暂存区的差别**
+
 ```
 $ git diff
 ```
 
 **查看工作树和最新提交的差别**
+
 ```
 $ git add README.md
 $ git diff HEAD
 ```
 *这里的`HEAD`是指向当前分支中最新一次提交的指针。*
 
+## 分支的操作
 
- 
+### git branch——显示分支一览表
 
+```
+$ git branch
+* master
+```
+*`*`表示当前所在分支*
 
+### git checkout -b——创建、切换分支
+
+#### 切换到 feature-A 分支并进行提交
+
+```
+$ git checkout -b feature-A
+Switched to a new branch 'feature-A'
+```
+*连续执行下面两条命令也能收到同样效果。*
+```
+$ git branch feature-A
+$ git checkout feature-A
+```
+
+#### 切换到 master 分支
+
+```
+$ git checkout master
+Switched to branch 'master'
+```
+
+#### 切换回上一个分支
+
+```
+$ git checkout -
+Switched to branch 'feature-A'
+```
+
+[TOC]
 

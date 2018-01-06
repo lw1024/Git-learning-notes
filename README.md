@@ -23,7 +23,6 @@ $ cat ~/.ssh/id_rsa.pub
 $ git -T git@github.com
 ```
 
-
 ### clone 已有仓库
 
 ```
@@ -53,6 +52,8 @@ $ git log
 ```
 $ git push
 ```
+
+---
 
 ## 基本操作
 
@@ -196,5 +197,53 @@ $ git merge --no-ff feature-A
 $ git log --graph
 ```
 
-[TOC]
+---
+
+## 更改提交的操作
+
+### git reset——回溯历史版本
+
+#### 回溯到创建 feature-A 分支前
+
+```
+$ git reset --hard 09c87c50c6b09ca50c39b4a1e3be2515c14de2ce
+```
+
+#### 创建 fix-B 分支
+
+```
+$ git checkout -b fix-B
+```
+在 README.md 文件中添加一行文字，然后提交。
+```
+$ git add README.md
+$ git commit -m "Fix B"
+```
+
+#### 推进至 feature-A 分支合并后的状态
+
+首先，查看当前仓库执行过的操作日志。
+```
+$ git reflog
+```
+在日志记录中找到 feature-A 分支合并后的状态所对应的哈希值。
+```
+$ git checkout master
+$ git reset --hard d59e11a
+```
+
+*消除冲突*
+进行合并操作。
+```
+$ git merge --no-ff fix-B
+```
+*此时可能会产生冲突。用编辑器打开发生冲突的文件，查看冲突部分并将其解决。*
+提交解决后的结果
+```
+$ git add README.md
+$ git commit -m "Fix conflict" 
+```
+
+
+<!--[TOC]-->
 

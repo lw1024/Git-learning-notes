@@ -153,5 +153,26 @@ $ git checkout -
 Switched to branch 'feature-A'
 ```
 
+### git merge——分支合并
+
+首先切换到 `master` 分支
+```
+$ git checkout master
+```
+
+然后合并 `feature-A` 分支
+```
+$ git merge --no-ff feature-A
+```
+
+随后编辑器会启动，用于录入合并提交的信息。
+默认信息中已经包含了相关内容，所以可以不必做任何修改。将编辑器中显示的内容保存，关闭编辑器，然后就会执行合并提交。
+
+### git log --graph——以图表形式查看分支
+
+```
+$ git log --graph
+```
+
 [TOC]
 

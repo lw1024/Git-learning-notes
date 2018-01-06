@@ -244,6 +244,12 @@ $ git add README.md
 $ git commit -m "Fix conflict" 
 ```
 
+### git commit --amend——修改提交信息
+
+```
+$ git commit --amend
+```
+执行上面的命令后，编辑器就会启动。请将提交信息的部分修改为 Merge branch 'fix-B'，然后保存文件，关闭编辑器。随后修改就完成了。
 
 <!--[TOC]-->
 

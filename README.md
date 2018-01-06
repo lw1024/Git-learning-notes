@@ -2,6 +2,28 @@
 
 ## 常用操作
 
+### 设置 SSH Key
+
+```
+$ ssh-keygen -t rsa -C "your_email@example.com"
+```
+*`"your_email@example.com"`的部分请改成自己的GitHub注册邮箱地址。*
+*id_rsa 文件是私有密钥，id_rsa.pub 是公开密钥。*
+
+### 添加公开密钥
+
+```
+$ cat ~/.ssh/id_rsa.pub
+```
+*将上面命令执行后显示的公钥内容复制粘贴到 GitHub 中*
+*公钥添加成功之后，邮箱会收到一封提示“公共密钥添加完成”的邮件。*
+
+*完成以上设置后，就可以用手中的私有密钥与GitHub进行认证和通信了。*
+```
+$ git -T git@github.com
+```
+
+
 ### clone 已有仓库
 
 ```

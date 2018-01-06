@@ -23,7 +23,6 @@ $ cat ~/.ssh/id_rsa.pub
 $ git -T git@github.com
 ```
 
-
 ### clone 已有仓库
 
 ```
@@ -53,6 +52,8 @@ $ git log
 ```
 $ git push
 ```
+
+---
 
 ## 基本操作
 
@@ -196,5 +197,108 @@ $ git merge --no-ff feature-A
 $ git log --graph
 ```
 
-[TOC]
+---
+
+## 更改提交的操作
+
+### git reset——回溯历史版本
+
+#### 回溯到创建 feature-A 分支前
+
+```
+$ git reset --hard 09c87c50c6b09ca50c39b4a1e3be2515c14de2ce
+```
+
+#### 创建 fix-B 分支
+
+```
+$ git checkout -b fix-B
+```
+在 README.md 文件中添加一行文字，然后提交。
+```
+$ git add README.md
+$ git commit -m "Fix B"
+```
+
+#### 推进至 feature-A 分支合并后的状态
+
+首先，查看当前仓库执行过的操作日志。
+```
+$ git reflog
+```
+在日志记录中找到 feature-A 分支合并后的状态所对应的哈希值。
+```
+$ git checkout master
+$ git reset --hard d59e11a
+```
+
+*消除冲突*
+进行合并操作。
+```
+$ git merge --no-ff fix-B
+```
+*此时可能会产生冲突。用编辑器打开发生冲突的文件，查看冲突部分并将其解决。*
+提交解决后的结果
+```
+$ git add README.md
+$ git commit -m "Fix conflict" 
+```
+
+### git commit --amend——修改提交信息
+
+```
+$ git commit --amend
+```
+执行上面的命令后，编辑器就会启动。请将提交信息的部分修改为 Merge branch 'fix-B'，然后保存文件，关闭编辑器。随后修改就完成了。
+
+### git rebase -i——压缩历史
+
+#### 创建 feature-C 分支
+
+```
+$ git checkout -b feature-C
+```
+然后在 README.md 文件中添加一行文字，并故意留下拼写错误，一边之后修正。
+
+提交这部分内容
+```
+$ git commit -am "Add feature-C"
+```
+
+#### 修正拼写错误
+
+现在打开 README.md 文件，并修正错误。然后进行提交。
+```
+$ git commit -am "Fix typo"
+```
+
+#### 更改历史
+
+因为这类错误并不需要在历史记录中展现出来，所以我们将这次提交与之前的一次提交合并。
+```
+$ git rebase -i HEAD~2
+```
+*上述命令可以选定当前分支中包含 HEAD （最新提交）在内的`两个`最新历史记录为对象，并在编辑器中打开。 *
+```
+pick 7a34294 Add feature-C
+pick 6fba227 Fix typo
+```
+
+我们将`6fba227`的`Fix typo`的历史记录压缩到`7a34294`的`Add feature-C`里。
+按照下面所示，将`6fba227`左侧的`pick`改写为`fixup`。
+```
+pick 7a34294 Add feature-C
+fixup 6fba227 Fix typo
+```
+保存并关闭编辑器。
+系统提示 rebase 成功。也就是将“Fix typo”的内容合并到“Add feature-C”中，并改写成一个新的提交（哈希值会更改）。
+
+#### 合并至 master 分支
+
+```
+$ git checkout master
+$ git merge --no-ff feature-C
+```
+
+<!--[TOC]-->
 

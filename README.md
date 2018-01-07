@@ -300,5 +300,83 @@ $ git checkout master
 $ git merge --no-ff feature-C
 ```
 
+## 推送至远程仓库
+
+首先，在 GitHub 上创建一个仓库，并将其设置为本地仓库的远程仓库。
+*为防止与其他仓库混淆，仓库名请与本地仓库保持一致，即 git-tutorial。*
+
+### git remote add——添加远程仓库
+
+```
+$ git remote add origin git@github.com:用户名/git-tutorial.git
+```
+*执行命令之后，git 会自动将远程仓库的名称设置为 origin。*
+
+### git push——推送至远程仓库
+
+#### 推送至 master 分支
+
+如果想将**当前分支下**本地仓库中的内容推送给远程仓库，需要用到 git push命令。
+```
+$ git push -u origin master
+```
+*-u 参数可以在推送的同时，将 origin 仓库的 master 分支设置为本地仓库当前分支的 upstream（上游）。添加了这个参数，将来运行 `git pull` 命令从远程仓库获取内容时，本地仓库的这个分支就可以直接从 origin 的 master 分支获取内容，省去了另外添加参数的的麻烦。*
+
+#### 推送至 master 以外的分支
+
+```
+$ git checkout -b feature-D
+$ git push -u origin feature-D
+```
+
+## 从远程仓库获取
+
+从实际开发者的角度出发，在另一个目录下新建一个本地仓库，学习从远程仓库获取内容的相关操作。
+
+### git clone——获取远程仓库
+
+#### 获取远程仓库
+
+首先，切换到其他目录下，将 GitHub 上的仓库 clone 到本地。
+```
+$ git clone git@github.com:用户名/git-tutorial.git
+```
+*执行`git clone`命令后默认处于 master 分支下，同时系统会自动将 origin 设置成改远程仓库的额标识符。*
+
+查看当前分支的相关信息
+```
+$ git branch -a
+```
+*添加`-a`参数可以同时显示本地仓库和远程仓库的分支信息。*
+
+#### 获取远程的 feature-D 分支
+
+```
+$ git checkout -b feature-D origin/feature-D
+```
+*为了便于理解，我们仍将其命名为 feature-D。*
+
+#### 向本地的 feature-D 分支提交更改
+
+在 README.md 文件中添加一行文字。然后提交。
+```
+$ git commit -am "Add feature-D"
+```
+
+#### 推送 feature-D 分支
+
+```
+$ git push
+```
+
+### git pull——获取最新的远程仓库分支
+
+现在，回到原先的那个目录下。
+将当前分支切换到 feature-D 分支。
+```
+$ git pull origin feature-D
+```
+
+
 <!--[TOC]-->
 

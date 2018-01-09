@@ -378,5 +378,5 @@ $ git pull origin feature-D
 ```
 
 
-<!--[TOC]-->
+[TOC]
 
